@@ -26,7 +26,8 @@ function initCanvas() {
     const ctx = canvas.getContext('2d');
     let width, height;
     let particles = [];
-    const particleCount = 45;
+    const isMobile = window.innerWidth <= 768;
+    const particleCount = isMobile ? 18 : 42;
 
     function resize() {
         width = canvas.width = window.innerWidth;
@@ -44,10 +45,10 @@ function initCanvas() {
         reset() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.6;
-            this.vy = (Math.random() - 0.5) * 0.6;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
             this.radius = Math.random() * 2 + 1;
-            this.alpha = Math.random() * 0.5 + 0.2;
+            this.alpha = Math.random() * 0.4 + 0.2;
         }
 
         update() {
@@ -62,8 +63,12 @@ function initCanvas() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(6, 182, 212, ${this.alpha})`;
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = 'rgba(6, 182, 212, 0.8)';
+            if (!isMobile) {
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = 'rgba(6, 182, 212, 0.8)';
+            } else {
+                ctx.shadowBlur = 0;
+            }
             ctx.fill();
         }
     }
@@ -344,7 +349,9 @@ function initCLIShell() {
         cliModal.classList.remove('active');
     }
 
+    const mobileCliTrigger = document.getElementById('mobile-cli-trigger');
     if (cliTrigger) cliTrigger.addEventListener('click', openCLI);
+    if (mobileCliTrigger) mobileCliTrigger.addEventListener('click', openCLI);
     if (cliClose) cliClose.addEventListener('click', closeCLI);
     if (cliCloseX) cliCloseX.addEventListener('click', closeCLI);
 
@@ -476,7 +483,10 @@ function initResumeModal() {
         if (resumeModal) resumeModal.classList.remove('active');
     }
 
+    const mobileResumeTrigger = document.getElementById('mobile-resume-trigger');
+
     if (resumeTrigger) resumeTrigger.addEventListener('click', openResumeModal);
+    if (mobileResumeTrigger) mobileResumeTrigger.addEventListener('click', openResumeModal);
     if (heroResumeBtn) heroResumeBtn.addEventListener('click', openResumeModal);
     if (resumeCloseX) resumeCloseX.addEventListener('click', closeResumeModal);
 

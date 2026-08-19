@@ -1611,6 +1611,37 @@ a:hover {
     .nav-toggle {
         display: flex;
     }
+    .nav-actions .btn-resume,
+    .nav-actions .btn-cli {
+        display: none;
+    }
+}
+
+.mobile-menu-divider {
+    display: none;
+    width: 80%;
+    max-width: 280px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.8rem 0;
+}
+
+.mobile-nav-actions {
+    display: none;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 80%;
+    max-width: 280px;
+}
+
+.mobile-nav-actions .btn {
+    width: 100%;
+    justify-content: center;
+}
+
+@media (max-width: 1200px) {
+    .mobile-menu-divider { display: block; }
+    .mobile-nav-actions { display: flex; }
 }
 
 /* Tablets & Small Laptops (max-width: 1024px) */
